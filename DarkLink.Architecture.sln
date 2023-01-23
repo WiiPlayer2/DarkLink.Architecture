@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DarkLink.Architecture.EventBus", "DarkLink.Architecture.EventBus\DarkLink.Architecture.EventBus.csproj", "{55695362-FF2E-4958-B8BD-E8958D5C729B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{E3240EEB-77CC-4693-AB91-D8B7BF2D6F1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{55695362-FF2E-4958-B8BD-E8958D5C729B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55695362-FF2E-4958-B8BD-E8958D5C729B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55695362-FF2E-4958-B8BD-E8958D5C729B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3240EEB-77CC-4693-AB91-D8B7BF2D6F1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3240EEB-77CC-4693-AB91-D8B7BF2D6F1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3240EEB-77CC-4693-AB91-D8B7BF2D6F1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3240EEB-77CC-4693-AB91-D8B7BF2D6F1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
