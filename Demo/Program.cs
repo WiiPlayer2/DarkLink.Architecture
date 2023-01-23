@@ -9,7 +9,6 @@ await Host.CreateDefaultBuilder(args)
         services.AddEvents();
 
         services.AddHostedService<Demo>();
-        services.AddSingleton<Demo2>();
     })
     .Build()
     .RunAsync();
@@ -18,7 +17,7 @@ internal class Demo : BackgroundService
 {
     private readonly PublishEventDelegate publishEvent;
 
-    public Demo(PublishEventDelegate publishEvent, Demo2 _)
+    public Demo(PublishEventDelegate publishEvent, IEnumerable<IEventProcessor> _)
     {
         this.publishEvent = publishEvent;
     }
@@ -30,7 +29,7 @@ internal class Demo : BackgroundService
     }
 }
 
-internal class Demo2 : IDisposable
+internal class Demo2 : IDisposable, IEventProcessor
 {
     private readonly IDisposable subscription;
 
