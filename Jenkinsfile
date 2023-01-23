@@ -28,7 +28,7 @@ pipeline {
 
         stage('Publish') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'public-nuget-repo', passwordVariable: 'apiKey', usernameVariable: 'source')]) {
+                withCredentials([usernamePassword(credentialsId: 'private-nuget-repo', passwordVariable: 'apiKey', usernameVariable: 'source')]) {
                     sh "dotnet nuget push ./packages/* --skip-duplicate --source $source --api-key $apiKey"
                 }
             }
