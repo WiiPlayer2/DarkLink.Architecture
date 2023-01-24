@@ -1,4 +1,5 @@
-﻿using DarkLink.Architecture.EventBus;
+﻿using DarkLink.Architecture.CommandBus;
+using DarkLink.Architecture.EventBus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -7,25 +8,39 @@ await Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
         services.AddEvents();
+        services.AddCommands();
 
         services.AddHostedService<Demo>();
     })
     .Build()
     .RunAsync();
 
+internal record DemoCommand : Command;
+
 internal class Demo : BackgroundService
 {
+    private readonly InvokeCommandDelegate invokeCommand;
+
+    private readonly ILogger<Demo> logger;
+
     private readonly PublishEventDelegate publishEvent;
 
-    public Demo(PublishEventDelegate publishEvent, IEnumerable<IEventProcessor> _)
+    public Demo(
+        PublishEventDelegate publishEvent,
+        InvokeCommandDelegate invokeCommand,
+        ILogger<Demo> logger,
+        IEnumerable<IEventProcessor> _)
     {
         this.publishEvent = publishEvent;
+        this.invokeCommand = invokeCommand;
+        this.logger = logger;
     }
 
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         publishEvent("hi");
-        return Task.CompletedTask;
+        await invokeCommand(new DemoCommand());
+        logger.LogInformation("Demo end.");
     }
 }
 
@@ -43,4 +58,16 @@ internal class Demo2 : IDisposable, IEventProcessor
     {
         subscription.Dispose();
     }
+}
+
+internal class DemoCommandHandler : ISyncCommandHandler<DemoCommand>
+{
+    private readonly ILogger<DemoCommand> logger;
+
+    public DemoCommandHandler(ILogger<DemoCommand> logger)
+    {
+        this.logger = logger;
+    }
+
+    public void Execute(DemoCommand command) => logger.LogInformation("Command!");
 }

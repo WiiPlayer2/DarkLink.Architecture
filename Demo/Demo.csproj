@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DarkLink.Architecture.CommandBus\DarkLink.Architecture.CommandBus.csproj" />
     <ProjectReference Include="..\DarkLink.Architecture.EventBus\DarkLink.Architecture.EventBus.csproj" />
   </ItemGroup>
 
