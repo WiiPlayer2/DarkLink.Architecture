@@ -23,6 +23,7 @@ public static class DependencyInjection
         services.TryAddSingleton<IEventBus, InMemoryEventBus>();
         services.AddSingleton(typeof(EventStream<>));
         services.AddSingleton<PublishEventDelegate>(sp => sp.GetRequiredService<IEventBus>().Publish);
+        services.AddHostedService<EventProcessorService>();
         services.AddEventProcessors();
     }
 

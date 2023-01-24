@@ -28,8 +28,7 @@ internal class Demo : BackgroundService
     public Demo(
         PublishEventDelegate publishEvent,
         InvokeCommandDelegate invokeCommand,
-        ILogger<Demo> logger,
-        IEnumerable<IEventProcessor> _)
+        ILogger<Demo> logger)
     {
         this.publishEvent = publishEvent;
         this.invokeCommand = invokeCommand;
@@ -44,11 +43,11 @@ internal class Demo : BackgroundService
     }
 }
 
-internal class Demo2 : IDisposable, IEventProcessor
+internal class DemoEventProcessor : IDisposable, IEventProcessor
 {
     private readonly IDisposable subscription;
 
-    public Demo2(EventStream<string> stringEvents, ILogger<Demo2> logger)
+    public DemoEventProcessor(EventStream<string> stringEvents, ILogger<DemoEventProcessor> logger)
     {
         subscription = stringEvents
             .Subscribe(@string => logger.LogInformation("String: {string}", @string));
