@@ -26,7 +26,4 @@ public static class DependencyInjection
         services.AddHostedService<EventProcessorService>();
         services.AddEventProcessors();
     }
-
-    public static void UseEvents(this IServiceProvider services)
-        => services.GetRequiredService<IEnumerable<IEventProcessor>>();
 }
