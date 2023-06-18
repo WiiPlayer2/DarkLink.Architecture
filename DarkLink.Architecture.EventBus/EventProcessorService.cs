@@ -1,12 +1,26 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using DarkLink.Architecture.EventBus.Events;
+using Microsoft.Extensions.Hosting;
 
 namespace DarkLink.Architecture.EventBus;
 
 internal class EventProcessorService : IHostedService
 {
-    public EventProcessorService(IEnumerable<IEventProcessor> _) { }
+    private readonly PublishEventDelegate publishEvent;
 
-    public Task StartAsync(CancellationToken cancellationToken) => Task.CompletedTask;
+    public EventProcessorService(IEnumerable<IEventProcessor> _, PublishEventDelegate publishEvent)
+    {
+        this.publishEvent = publishEvent;
+    }
 
-    public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
+    public Task StartAsync(CancellationToken cancellationToken)
+    {
+        publishEvent(new ApplicationStarting());
+        return Task.CompletedTask;
+    }
+
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        publishEvent(new ApplicationStopping());
+        return Task.CompletedTask;
+    }
 }
